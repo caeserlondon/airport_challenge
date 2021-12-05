@@ -1,5 +1,13 @@
 class Airport
-	 def land(plane); end
+	def initialize(capacity)
+		@capacity = capacity
+		@planes = []
+	end
 
-	 def take_off(plane); end
+	def land(plane)
+		raise 'cannot land plane: airport full' if @planes.length >= @capacity
+		@planes << plane
+	end
+
+	def take_off(plane); end
 end
