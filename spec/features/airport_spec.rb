@@ -23,15 +23,13 @@ describe Airport do
           20.times do
             airport.land(plane)
           end
-          expect do
-            airport.land(plane)
-          end.to raise_error 'cannot land plane: airport full'
+          expect { airport.land(plane) }.to raise_error 'cannot land plane: airport full'
         end
       end
     end
 
     context 'when stormy' do
-      it 'raise an error if asked to land a plane when stormy' do
+      it 'raise an error' do
         allow(airport).to receive(:stormy?).and_return true
         expect { airport.land(plane) }.to raise_error 'cannot land plane: weather is stormy'
       end
@@ -39,8 +37,20 @@ describe Airport do
   end
 
   describe '#take_off' do
-    it 'instruct a plane to take off' do
-      expect(airport).to respond_to(:take_off).with(1).argument
+		  context 'when not stormy' do
+      it 'instruct a plane to take off' do
+        expect(airport).to respond_to(:take_off).with(1).argument
+      end
+    end
+
+		  context 'when stormy' do
+  				before do
+  					 allow(airport).to receive(:stormy?).and_return true					
+  				end
+
+  		  it 'raises an error' do
+    		  expect { airport.take_off(plane) }.to raise_error 'cannot take off plane: weather is stormy'
+      end
     end
   end
 end
