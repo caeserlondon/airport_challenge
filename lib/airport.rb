@@ -1,24 +1,27 @@
+# frozen_string_literal: true
+
 class Airport
-	 def initialize(capacity)
- 		 @capacity = capacity
- 		 @planes = []
- 	end
+  def initialize(capacity)
+    @capacity = capacity
+    @planes = []
+  end
 
-	 def land(plane)
- 		 raise 'cannot land plane: airport full' if full?
-		  raise 'cannot land plane: weather is stormy' if stormy?
- 		 @planes << plane
- 	end
+  def land(plane)
+    raise 'cannot land plane: airport full' if full?
+    raise 'cannot land plane: weather is stormy' if stormy?
 
-	 def take_off(plane); end
+    @planes << plane
+  end
 
-	private 
+  def take_off(plane); end
 
-	 def full?
- 		 @planes.length >= @capacity
- 	end
+  private
 
-	 def stormy?
-		  rand(1..6) > 4
-	 end
+  def full?
+    @planes.length >= @capacity
+  end
+
+  def stormy?
+    rand(1..6) > 4
+  end
 end
