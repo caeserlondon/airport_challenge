@@ -5,13 +5,14 @@ require './lib/airport'
 describe Airport do
   # it { is_expected.to respond_to(:land).with(1).argument } first scafolding code
 
-  subject(:airport) { described_class.new(20) }
+  subject(:airport) { described_class.new(20, weather_reporter) }
   let(:plane) { double :plane }
+  let(:weather_reporter) { double :weather_reporter }
 
   describe '#land' do
     context 'when not stormy' do
       before do
-        allow(airport).to receive(:stormy?).and_return false
+        allow(weather_reporter).to receive(:stormy?).and_return false
       end
 
       it 'instruct a plane to land' do
@@ -30,7 +31,7 @@ describe Airport do
 
     context 'when stormy' do
       it 'raise an error' do
-        allow(airport).to receive(:stormy?).and_return true
+        allow(weather_reporter).to receive(:stormy?).and_return true
         expect { airport.land(plane) }.to raise_error 'cannot land plane: weather is stormy'
       end
     end
@@ -45,7 +46,7 @@ describe Airport do
 
 		  context 'when stormy' do
   				before do
-  					 allow(airport).to receive(:stormy?).and_return true					
+  					 allow(weather_reporter).to receive(:stormy?).and_return true					
   				end
 
   		  it 'raises an error' do
